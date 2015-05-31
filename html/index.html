@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <style type="text/css">
+    img.box{
+    height: 100px;
+    width:100px;
+    border-style: solid;
+    border-color: white;
+    
+    padding 2s;
+    
+   /* -webkit-transition: padding 2s; */
+}
+img:hover{
+    height:120px;
+    width:120px;
+    border-radius 2s;
+    /*-webkit-transition: border-radius 2s;*/
+}
+    </style>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+
+    
+    $( document ).ready(letsdothis);
+ 
+    function letsdothis(){
+
+    }
+var redditPicsApi = "http://www.reddit.com/r/pics.json";
+$.getJSON( redditPicsApi, function (picsJson) {
+    if (picsJson.kind == "Listing"){
+        console.log("this is a listing");
+    }
+    console.log( picsJson.data.modhash);
+    console.log( picsJson.data.after);
+    console.log( picsJson.data.children.length);
+    
+    var items=[];
+    $.each( picsJson.data.children, function (index,record) {
+
+        items.push("<img class='box' src='" + record.data.thumbnail + "'></img>");
+        var rate = record.data.ups
+    });
+
+    $("#images").html(items);
+    //items.appendTo("#images");
+});
+</script>
+
+</head>
+<body>
+
+<h1>Amages</h1>
+
+<p>What did you miss today?</p>
+<div id="images"></div>
+</body>
+</html>
